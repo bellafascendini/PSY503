@@ -1,0 +1,232 @@
+---
+title: "PSY 503: Lab 04 - Joins, Broom, Regression Intro"
+author: "Bella Fascendini"
+date: "2024-10-02"
+output:
+  pdf_document: default
+  html_document: default
+editor_options:
+  markdown:
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(broom)
+setwd("/Users/bf2383/Downloads")
+```
+
+# PSY 503: Lab 04 - Joins, Broom, Regression Intro
+
+
+For this lab assignment, let's imagine that Galton collected and saved height measurements of families in the following manner:
+
+a)  he denoted each of the 928 families surveyed with a family id
+b)  children's heights in families were saved in child-height.csv
+c)  parents' heights were saved in parent_height.csv
+d)  for a side project, he also collected grandparents' heights in families in to grandparent_height.csv [NOTE: this never happened]
+
+These files can be found in the following Google drive directory: <https://drive.google.com/drive/folders/1JW1KQ9DYwFC3nb3iktWBF0hNG4WfHNjP?usp=sharing>
+
+## Joins
+
+Your tasks are to:
+
+J1)  Using a join command, combine the dataframes for **children** and **parents** based on their family identifier. Display this dataframe. Save this dataframe for future use.
+
+```{r}
+children <- read_csv("child_height.csv")
+parents <- read_csv("parent_height.csv")
+
+# Join children and parents by family id
+children_parents <- left_join(children, parents, by = "family_id")
+print(children_parents)
+write_csv(children_parents, "children_parents.csv")
+
+```
+
+J2) Next, use the appropriate join command to merge the dataframe you derived from (1) and grandparent_height.csv file to produce a single dataframe that saves within one dataframe all the information across the original 3 .csv files. Display this dataframe
+
+```{r}
+grandparents <- read_csv("grandparent_height.csv")
+all_data <- left_join(children_parents, grandparents, by = "family_id")
+print(all_data)
+```
+
+J3) While you are at it, use the appropriate join to find only those families for which all measurements across children, parents, and grandparents were available.Display this dataframe.
+
+```{r}
+complete_data <- inner_join(inner_join(children, parents, by = "family_id"), grandparents, by = "family_id")
+print(complete_data)
+```
+
+Having used different joins, lets go back to the dataframe produced in (J1), and use it for visualization and  for building regression models.
+
+## Visualization
+
+Scatterplots are the best way to visualize relationships that you are hoping to model.
+
+V1) Produce a scatterplot with children's height on the y-axis and parents' height on the x-axis. Use geom_jitter, and set transparency with the alpha parameter so that any overlapping data points are easy to spot.
+
+```{r}
+
+ggplot(children_parents, 
+       aes(x = parent_ht, 
+           y = child_ht)) +
+  geom_jitter(alpha = 0.4) +
+  labs(x = "Parents' Height", 
+       y = "Children's Height")
+```
+
+V2) Draw the following lines on the scatterplot:
+- a horizontal line at the mean of children's heights colored in red, using geom_hline()
+- a regression line using geom_smooth() by setting its' *method* to be equal to "lm"
+- diagonal line at the points where the parents' heights are the same as the children's heights. Use geom_abline() and set the color to "dark green"
+
+```{r}
+mean_child_ht <- mean(children_parents$child_ht)
+
+ggplot(children_parents, aes(x = parent_ht, 
+                             y = child_ht)) +
+  geom_jitter(alpha = 0.4) +
+  geom_hline(yintercept = mean_child_ht, 
+             color = "red") +
+  geom_smooth(method = "lm", 
+              se = FALSE) +
+  geom_abline(slope = 1, 
+              intercept = 0, 
+              color = "darkgreen") +
+  labs(x = "Parents' Height", 
+       y = "Children's Height")
+
+```
+
+
+## Regression
+
+While visual results are great, we want to use the full power of lm() to find estimates of model parameters that minimize error, to make predictions, and to calculate various diagnostics of model fit. 
+
+R1) Build a null model (intercept-only) using lm() for predicting children's height. Show the result of model fitting by printing the model. Show more detailed results by using the summary() command
+
+```{r}
+null_model <- lm(child_ht ~ 1, data = children_parents)
+print(null_model)
+summary(null_model)
+```
+
+R2)  Build a model using parents' height as the explanatory variable. Show the result of model fitting by printing the model. Show more detailed results by using the summary() command
+
+```{r}
+model_parent <- lm(child_ht ~ parent_ht, data = children_parents)
+print(model_parent)
+summary(model_parent)
+```
+
+R3)  While the print() and summary() commands are useful for displaying results, it's hard to automatically extract results of model-fitting using them.
+
+Use the tidy() command in broom to save model fitting results in a new dataframe. Using this dataframe, display the coefficients of the model fit (i.e. parameter estimates of intercept and slope) of the two models.
+
+```{r}
+null_model_tidy <- tidy(null_model)
+model_parent_tidy <- tidy(model_parent)
+
+print(null_model_tidy)
+print(model_parent_tidy)
+
+```
+
+R4)  Use the predict() function to generate predictions for both models for three different parent heights. 40 inches, 64 inches, 75 inches. Do this with a single call of predict by passing to it the appropriate data structure with these 3 values.
+
+```{r}
+
+parents_ht_selected <- tibble(parent_ht = c(40, 64, 75))
+predict(null_model, parents_ht_selected)
+predict(model_parent, parents_ht_selected)
+
+```
+
+R5) Actually, lets generate predictions for a larger set of values.
+
+```{r}
+x_predict <- tibble(parent_ht = seq(50, 100, by = 2))
+  x = seq(50, 100, by = 2) #parents' heights for which you are predicting childrens' heights
+
+y_predict_null<- predict(null_model, x_predict)
+
+y_predict_one_explanatory_variable<- predict(model_parent, x_predict)
+```
+
+R6) Let's plot these predictions on top of our previous scatterplot, by adding two geom_line() commands which uses this new data. Note that these geom_lines will be using data frames different from the original dataframe that was used for scatterplot.
+```{r}
+#two dataframes you'd use for the two geom_lines
+df_predictions_null<- x_predict %>%
+                bind_cols(y_predict_null)
+
+df_predictions_explanatory<- x_predict %>%
+                bind_cols(y_predict_one_explanatory_variable)
+
+#Reproduce your earlier scatterplot from V1 below, and add two geom_line layers
+
+ggplot(children_parents, aes(x = parent_ht, 
+                             y = child_ht)) +
+  geom_jitter(alpha = 0.4) +
+  geom_line(data = df_predictions_null, aes(x = parent_ht, 
+                                            y = y_predict_null), color = "blue") +
+  geom_line(data = df_predictions_explanatory, aes(x = parent_ht, 
+                                                   y = y_predict_one_explanatory_variable), 
+            color = "green") +
+  labs(x = "Parents' Height", 
+       y = "Children's Height")
+```
+
+Why is this way of plotting predictions generally more useful than the method we had used so far?
+
+This plot is more useful because it shows the predictions of the model on top of the actual data, which allows us to see how well the model fits the data.
+
+
+R7)  predict() function is not as special as it seems. Create your own predict functions that uses the coefficients you extracted in (3c) and plugs it into the formulation of (i) the null model and (ii) linear model with 1 explanatory variable.
+
+Find predictions when x is 40 inches, 64 inches, and 75 inches.
+
+```{r}
+predict_null<- function(b0, x){
+  return(b0)
+}
+
+predict_one_explanatory_variable<- function(b0, b1, x){
+  return(b0 + b1 *x)
+}
+
+# Coefficients 
+b0_null <- null_model_tidy$estimate[1]
+b0 <- model_parent_tidy$estimate[1]
+b1 <- model_parent_tidy$estimate[2]
+
+# Predictions for specific values
+predict_null(b0_null, c(40, 64, 75))
+predict_one_explanatory_variable(b0, b1, c(40, 64, 75))
+
+```
+
+R6)  The glance() function in broom shows you many "goodness of fit" measures. Compare the r-squared values you obtain for the two models.
+
+```{r}
+glance(null_model)
+glance(model_parent)
+```
+
+R7)  The augment() function in broom allows you to add columns having to do with model predictions to the dataset. Use augment to create expanded tables for both models. 
+
+
+```{r}
+augmented_null <- augment(null_model, data = children_parents)
+augmented_explanatory <- augment(model_parent, data = children_parents)
+
+print(augmented_null)
+print(augmented_explanatory)
+```
+
+Identify the two variables in this resulting dataset that when added give you the predictor variable (i.e. child's height). What do you think they are referring to?
+
+If I understood the question correctly - I think the two varaibles are .resid and .fitted. .resid is the residuals and .fitted is the predicted values. When these two values are added together, it should sum up to the original observed child's height for each observation.

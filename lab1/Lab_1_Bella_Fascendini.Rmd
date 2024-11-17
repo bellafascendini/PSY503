@@ -1,0 +1,45 @@
+---
+title: "Lab_1"
+author: "Bella Fascendini"
+date: "2024-09-11"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+#1 loading packages
+library(mosaic)
+library(coursekata)
+library(tidyverse)
+library(datasauRus)
+```
+
+```{r}
+#2 display strucutre of dataframe
+str(datasaurus_dozen)
+datasaurus_dozen
+#In this dataframe, the first column dataset contains nomial type of data, which represents different categories
+#(e.g., dino, dots, high_lines, etc). Columns x and y contain numerical and continuous data.
+print(datasaurus_dozen$dataset)
+print(unique(datasaurus_dozen$dataset)) #this line of code only prints out unique values in the column dataset.
+```
+```{r}
+#3 & 4 printing dataset and plotting
+temp_data <- datasaurus_dozen %>% 
+  filter(dataset == "circle")
+gf_point(y ~ x, data = temp_data)
+```
+```{r}
+temp_data_dino <- datasaurus_dozen %>% 
+  filter(dataset == "dino")
+gf_point(y ~ x, data = temp_data_dino)
+#I'm observing different pattersn of the data! Cute dino in this one.
+```
+```{r}
+temp__high_line <- datasaurus_dozen %>% 
+  filter(dataset == "high_lines")
+gf_point(y ~ x, data = temp__high_line)
+```
+
+
+

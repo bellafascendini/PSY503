@@ -1,0 +1,294 @@
+---
+title: "PSY 503: Lab 05 - Correlations, Regression with Dummy Coding"
+author: "Bella Fascendini"
+date: "2024-10-02"
+output:
+  pdf_document: default
+  html_document: default
+editor_options:
+  markdown:
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# PSY 503: Lab 05 - Correlations, Regression with Dummy Coding
+
+## Correlation and Regression
+
+```{r}
+library(tidyverse)
+library(broom)
+setwd("/Users/bf2383/Downloads")
+```
+
+Let's use the galton's child parent height data as before. CSV file here: https://drive.google.com/file/d/1LK9jGBSpPr21S9_BzZhJi5Z68rB3JTEX/view?usp=sharing
+
+Your tasks are to:
+(1) Add two columns to the dataset: z_child_ht, and z_parent_ht which consists of standardized heights scores for the two variables
+
+```{r}
+df <- read.csv('galton_child_parent_heights.csv')
+df$z_child_ht <- scale(df$child_ht)
+df$z_parent_ht <- scale(df$parent_ht)
+```
+
+(2) Install the package "corrr" if you don't have it already.
+Use corrr::correlate() to compute the correlation matrix/ pair-wise correlations for the variables in the data-frame. Display the matrix and save it within a new dataframe. Explain the observed results.
+You can also use cor() to get the correlation matrix, but corrr::correlate() works better with tidyverse.
+```{r}
+library(corrr)
+matrix_corr <- correlate(df)
+print(matrix_corr)
+# There is a positive correlation between parent and child heights, 
+#which suggest that taller parents tend to have taller children.
+```
+
+3)  Create scatterplots of child_ht vs parent-ht, and z_child_ht vs z_parent_ht.
+Add a linear regression line to the plot (it is fine to use geom_smooth).
+Annotate the plot with the correlation value you had calculated earlier.
+
+```{r}
+library(ggplot2)
+
+ggplot(df, aes(x = parent_ht, 
+               y = child_ht)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  ggtitle('child_height vs. parent_height') 
+
+
+# Scatterplot for z_child_hi vs z_parent_ht
+ggplot(df, aes(x = z_parent_ht, y = z_child_ht)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  ggtitle('standardized child_height vs. parent_height')
+
+```
+
+4)  
+(a) Fit a linear model to the data with
+i)  child_ht as the outcome variable, and parent_ht as the predictor/explanatory variable.
+ii) z_child_ht the outcome variable, and z_parent_ht as the predictor/explanatory variable.
+
+Save these results as new r objects.
+
+```{r}
+
+lm_data <- lm(child_ht ~ parent_ht, data = df)
+
+lm_z_data <- lm(z_child_ht ~ z_parent_ht, data = df)
+
+# Save models as objects
+summary(lm_data)
+summary(lm_z_data)
+
+```
+
+(b) Compare the co-efficients you observe for the two cases, and explain anything salient about what you see.
+
+```{r}
+# Check the coefficients
+coef(lm_data)
+coef(lm_z_data)
+
+#both models reveal a positive linear relationship between parent height and 
+#child height, although the first one is in the original units of measurement, 
+#the second one is in standard deviation units.
+```
+
+(c) Use glance() from the broom package to look at the several summary statistics obtained for these regression fits. Explain anything salient about what you see here.
+
+```{r}
+library(broom)
+glance(lm_data)
+glance(lm_z_data)
+ #The r-squared value is the same for both models, which means that about 72.6% 
+#of the variance in child height is explained by the parent height in both 
+#models. Since both models have only one predictor, the adjusted r-squared is 
+#almost identical to the r-squared value. Both models are highly significant 
+#and have a small sigma value, which means that both models are a good fit for 
+#the data.
+```
+
+(d) We have come across the notion of total variance in the data, as well as variance that is explained or unexplained by a model. Calculate these three values for both set of models, and write about anything you find salient.
+
+As a hint, all of these can be found with the var command.
+The values you would be finding the variance of are either the (i) fitted data / predictions, (ii) observed data, or (iii) model residuals.
+You need to map these quantities to the different types of variance.
+Feel free to use augment() from broom, or referencing obtaining these variables from within the model object (lmfit_from_4a\$fitted, lmfit_from_4a\$resid)
+
+```{r}
+# Get variances for fitted values, residuals, and total variance
+var_fitted <- var(lm_data$fitted.values)
+var_resid <- var(lm_data$residuals)
+total_var <- var(df$child_ht)
+
+var_fitted_z <- var(lm_z_data$fitted.values)
+var_resid_z <- var(lm_z_data$residuals)
+total_var_z <- var(df$z_child_ht)
+
+```
+
+(e) Calculate explained variance/ total variance for both sets of models. Connect results here with results from 4c and 2.
+```{r}
+explained_var <- var_fitted / total_var
+explained_var_z <- var_fitted_z / total_var_z
+# results here further confirmed results from 4(c) and 2. In 4(c), we found that
+#about 72.6% of the variance in child height is explained by the parent height 
+#in both models, and here, we found that 72.6% of the total variance is 
+#attributed to the fitted model for both regular and standardized heights.
+```
+
+## Part 2. Regression Intro (Continuous outcome, categorical predictors)
+
+Let's use the gapminder dataset that you have already worked with, and let's use the most recent year of data.
+
+To motivate our analysis,  fundamental question in economic development is "How does a country's geographic location relate to its economic prosperity?"
+
+One interesting observation is that countries within the same continent often have similar levels of economic development.
+Do you guess differently about a country's economy knowing that it is in Africa or that it is in Europe?
+
+Well, in addition to guessing, we can look at the data and attempt a regression analysis.
+gdpPercap could be a proxy for economic prosperity
+And we know the continents that each country belongs to.
+
+```{r}
+head(data)
+```
+
+
+With regression, we can ask questions like:
+1. Is there a difference in GDP per capita across continents?
+2. How much of the variation in countries' GDP per capita can be explained by which continent they're in?
+and so on.
+
+
+Step 1: Visualize data
+```{r}
+library(gapminder)
+
+# Let's use the most recent year of data
+gapminder_2007 <- gapminder %>% 
+  filter(year == 2007)
+
+# let's look at the distribution of GDP per capita
+p1<- ggplot(gapminder_2007, aes(x = gdpPercap)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  scale_x_continuous(labels = scales::dollar_format()) +
+  labs(title = "Distribution of GDP per capita",
+       x = "GDP per capita", y = "Count") +
+  theme_minimal()
+
+print (p1)
+```
+
+This data is right-skewed. It turns out that taking the log of per capita gdp in such scenarios helps with skewness.
+(It also helps economists talk more easily about rate of change of GDP and whether that is increasing or not)
+
+Let's transform the variable and observe the results
+```{r}
+# Let's use the most recent year of data
+gapminder_2007 <- gapminder %>% 
+  filter(year == 2007) %>%
+  mutate(log_gdp = log(gdpPercap))
+
+# Visualize the distribution of GDP per capita
+p1 <- ggplot(gapminder_2007, aes(x = gdpPercap)) +
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  scale_x_continuous(labels = scales::dollar_format()) +
+  labs(title = "Distribution of GDP per capita",
+       x = "GDP per capita", y = "Count") +
+  theme_minimal()
+
+# Visualize the distribution of log(GDP per capita)
+p2 <- ggplot(gapminder_2007, aes(x = log_gdp)) +
+  geom_histogram(bins = 30, fill = "lightgreen", color = "black") +
+  labs(title = "Distribution of log(GDP per capita)",
+       x = "log(GDP per capita)", y = "Count") +
+  theme_minimal()
+
+# Display plots side by side
+library(patchwork)
+print(p2)
+```
+
+
+The transformed values seem more like a normal distribution and with less skew. 
+So let's uses log_gdp as our outcome variable. 
+
+
+Q5) Create dummy variables for the continent variable. Use the mutate() function to add new columns, one for each continent except one (which will serve as the reference category). 
+Use Africa as the reference category.
+
+[Hint:
+(1) "as.integer(continent == "Americas")" returns the value of 1 when the continent is Americas, and 0 otherwise
+(2) Note again, that you'll need one column less than all the possible continent columns]
+
+Show the first few rows of this new dataset.
+```{r}
+gapminder_dummy <- gapminder_2007 %>%
+  mutate(continent_Americas = as.integer(continent == "Americas"),
+         continent_Europe = as.integer(continent == "Europe"),
+         continent_Asia = as.integer(continent == "Asia"),
+         continent_Oceania = as.integer(continent == "Oceania"))
+
+head(gapminder_dummy)
+
+
+
+```
+
+
+Q6) Fit two models
+Model A is the empty model that predicts log_gdp by only includes an intercept. 
+Model B is the model that predicts log_gdp based on continent.
+```{r}
+# Model A:
+model_A <- lm(log_gdp ~ 1, data = gapminder_2007)
+
+# Model B: 
+model_B <- lm(log_gdp ~ continent, data = gapminder_2007)
+
+summary(model_A)
+summary(model_B)
+
+
+```
+
+Q7) Examine the results of the two models. What do you notice/ infer from it?
+Try using glance() for this model too, and elaborate on what you think is salient.
+```{r}
+
+glance_A <- glance(model_A)
+glance_B <- glance(model_B)
+
+# Print the summaries
+print(glance_A)
+print(glance_B)
+
+# Model B should explain a significant portion of the variance in GDP per 
+#capita compared to Model A, and the p-value indicates that the model is highly 
+#significant. The adjusted r-squared value is 0.726, which means that 72.6% of 
+#the variance in GDP per capita is explained by the continent. 
+#The sigma value is small, which means that the model is a good fit for the data
+```
+
+Q8) Create a strip plot of log_gdp for each continent, with a box plot overlaid. This will show both the individual country data points and the overall distribution for each continent. Use ggplot2 to create this visualization. Does this visual support the conclusions you drew from the R-squared value?
+
+[Hint: Strip plots are generated by using geom_jitter();
+Given that you are overlaying the boxplot over the strip-plot, use the alpha parameter to ensure that the boxplot is not opaque and obscuring the datapoints. 
+For the boxplot, set  outlier.shape = NA, so that outliers are not plotted --- we already have the data visualized including outliers]
+
+```{r}
+ggplot(gapminder_2007, aes(x = continent, y = log_gdp)) +
+  geom_jitter(width = 0.1, alpha = 0.5, color = "blue") +  
+  geom_boxplot(alpha = 0.3, outlier.shape = NA, fill = "skyblue") +  
+  labs(title = "Log GDP per capita by Continent",
+       x = "Continent", y = "Log GDP per Capita") +
+  theme_minimal()
+
+```
+

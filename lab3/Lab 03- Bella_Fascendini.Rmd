@@ -1,0 +1,96 @@
+---
+title: "Lab 3- Data Wrangling - Questions"
+author: "Bella Fascendini"
+date: "2024-09-25"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(gapminder)
+```
+# Lab 3 - Gapminder Data Wrangling Lab Assignment
+
+Using the Gapminder dataset, complete the following tasks. Use tidyverse and dplyr functions and pipes where appropriate.
+Remember to load the necessary libraries and the Gapminder dataset before starting.
+
+1) Find all countries in Asia with a life expectancy greater than 75 years in 2007.
+```{r}
+head(gapminder)
+
+asia_75plus_2007 <- gapminder %>%
+  filter(year == 2007, continent == "Asia", lifeExp > 75) %>%
+  select(country, lifeExp)
+
+asia_75plus_2007
+
+```
+
+2) List the top 5 countries with the highest GDP per capita in 2007, in descending order.
+```{r}
+top_5_gdp <- gapminder %>%
+  filter(year == 2007) %>%
+  arrange(desc(gdpPercap)) %>%
+  select(country, gdpPercap) %>%
+  slice(1:5)
+top_5_gdp
+```
+
+3) Create a new dataframe with only the country, continent, and GDP per capita for the year 2007.
+```{r}
+df_2007 <- gapminder %>%
+  filter(year == 2007) %>%
+  select(country, continent, gdpPercap)
+
+df_2007
+```
+
+4) Add a new column called "gdp" that calculates the total GDP (GDP per capita * population) for each country in 2007.\
+```{r}
+gdp_total <- df_2007 %>%
+  mutate(gdp = gdpPercap * gapminder$pop[gapminder$year == 2007])
+
+gdp_total
+```
+
+5) Create two separate dataframes: one for countries in Europe and one for countries in Africa, both for the year 2007. Then bind these dataframes together.
+```{r}
+europe_2007 <- gapminder %>%
+  filter(year == 2007, continent == "Europe")
+
+africa_2007 <- gapminder %>%
+  filter(year == 2007, continent == "Africa")
+
+europe_africa_combined <- bind_rows(europe_2007, africa_2007)
+
+europe_africa_combined
+```
+
+6) Calculate the average life expectancy and total population for each continent in 2007.
+```{r}
+summary_2007 <- gapminder %>%
+  filter(year == 2007) %>%
+  group_by(continent) %>%
+  summarize(
+    average_life_expectancy = mean(lifeExp),
+    total_population = sum(pop)
+  )
+
+summary_2007
+
+```
+
+7) Create a wide format dataframe that shows the population for each country across all life expectancies as columns.
+
+```{r}
+population_wide <- gapminder %>%
+  #filter(year == 2007) %>%
+  select(country, pop, year) %>%
+  pivot_wider(names_from = country, 
+              values_from = pop,
+              names_prefix = "pop_")
+population_wide
+```
