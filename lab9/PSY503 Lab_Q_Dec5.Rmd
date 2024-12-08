@@ -1,8 +1,10 @@
 ---
 title: "Dec 5 Lab - regression assumptions and multiple regression"
-author: "Suyog Chandramouli"
+author: "Bella Fascendini"
 date: "2024-12-04"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -29,6 +31,11 @@ head(parenthood)
 ```
 To get a good idea of the dataset, it's worth visualizing it using multiple scatterplots.
 ```{r}
+pairs(parenthood[,c("dan.grump", "dan.sleep", "baby.sleep")],
+      main = "Relationships between Sleep and Grumpiness",
+      pch = 19,  # Solid circles for points
+      col = "darkblue",  # Point color
+      labels = c("Grumpiness", "Parent Sleep", "Baby Sleep"))
 
 ```
 
@@ -37,21 +44,24 @@ One possible explanation of Danielle's grumpiness is that it is influence by the
 
 (Hint: 2 predictors)
 ```{r}
-
+sleep_model <- lm(dan.grump ~ dan.sleep + baby.sleep, data = parenthood)
+summary(sleep_model)
 ```
 Having fit the model to the data, we now have access to both, the fitted values and the residuals. This means that the regression assumptions can also be assessed :)
 
 Use the model check function from the performance package to assess model assumptions visually.
 It takes as input the fitted model and the list of tests.
 Only giving the model as input however produces a more exhaustive lists of checks. 
-```{r}
-library(performance)
 
-#Insert code
+```{r fig.width=8, fig.height=8}
+
+library(performance)
+library(see)
+check_model(sleep_model)
 ```
 What do you observe? For any explanations of the observations make sure that you mention it in terms of the variables on the x and y axes of the plots that are generated. 
 ```{r}
-#Add text
+#The model appears to be doing a reasonably good job because the blue predicted lines closely follow the shape of the green observed data line. The peak of both observed and predicted distributions occurs around a grumpiness score of 60, suggesting this is the most common grumpiness level in the data. However, there are some small discrepancies. The model predictions (blue lines) show some variation around the observed data (green line), particularly around the peak of the distribution. This suggests there's some uncertainty in the model's predictions, though not enough to indicate serious problems with the model fit.
 ```
 
 Note that while these visual model checks give you a qualitative idea of whether the assumptions are met, each of the regression assumptions also has corresponding quantitative tests. These tests are often based on appropriate hypotheses tests that are relevant for a given assumption. 
@@ -62,17 +72,22 @@ Run the shapiro test for normality of residuals.
 shapiro.test() takes as input the residuals of your model which can be found via the residuals() function or via relevant functions if you are using broom. 
 
 ```{r}
-
+shapiro.test(residuals(sleep_model))
 ```
 What is the outcome of the Shapiro-Wilk normality test? Does it match you assessment (for normality) from the visual model check?
 
 ```{r}
-#Add text
+#The Shapiro-Wilk normality test result aligns well with what we observed in our visual check. The p-value of 0.8414 is greater than 0.05, so we fail to reject the null hypothesis, which suggests that the residuals are normally distributed. 
 ```
 
 Similarly the Breusch-Pagan test -- bptest() in the lmtest package, checks for the assumption of constant variance. Carry it out and see if it matches your assessment from the visual model check 
 
 ```{r}
+library(lmtest)
+library(zoo)
+bptest(sleep_model)
+
+#It does match my assessment from the visual model check! The p-value of 0.7832 suggests that we fail reject the null hypothesis, which is good! It means that the model is about equally reliable across all predicted values of grumpiness.
 
 ```
 
@@ -84,7 +99,12 @@ Bonus Question: If the underlying research question Navarro intended to explore 
 (Hint: this question suggests that she is thinking of two different models of the data generating process)
 
 ```{r}
-#Answer in text.
+model1 <- lm(dan.grump ~ dan.sleep, data = parenthood)
+model2 <- lm(dan.grump ~ dan.sleep + baby.sleep, data = parenthood)
+anova(model1, model2)
+
+#The RSS is almost identical between the models (both approximately 1838.7), and the p-value is very large. These suggest that adding baby's sleep doesn't help much in explaining the variation in grumpiness. Essentially, once we know how much sleep Danielle got, knowing how much the baby slept doesn't help us predict her grumpiness any better.
+
 ```
 
 Having done this lab, I encourage you to go through chapter 15 of Learning Statistics with R in more detail, as it talks about many more modeling nuances. 
