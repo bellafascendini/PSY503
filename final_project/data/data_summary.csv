@@ -1,0 +1,49 @@
+Subject,Gender,age_in_days,Ethnicity,Counterbalance_Schedule_Cell_#,conservation_total,counterfactual_total
+1,F,2252,unknown,4,0,1
+2,M,2304,white,27,0,2
+3,M,2426,white,40,4,3
+4,M,2335,white & asian,13,2,3
+5,M,2683,white,45,2,4
+6,F,2851,asian,15,3,3
+7,F,2510,asian & white,33,2,4
+8,F,2856,"hispanic, asian & white",47,3,3
+9,F,2288,white,10,0,1
+10,M,2515,white,38,0,0
+11,F,2209,white,2,1,2
+12,M,2279,white,24,2,3
+13,M,2908,asian & white,35,4,4
+14,F,2201,asian & white,36,2,0
+15,F,2307,white & black,12,4,2
+16,F,2713,American Indian,28,0,3
+17,F,2428,white,17,0,4
+18,F,2579,unknown,41,3,2
+19,F,2893,unknown,26,1,2
+20,M,2568,hispanic,14,3,2
+21,M,2598,white & hispanic,5,1,2
+22,M,2296,hispanic & white,32,0,0
+23,M,2736,white,8,4,3
+24,M,2229,asian,48,0,0
+25,M,2624,white,22,0,0
+26,F,2818,asian,1,1,0
+27,F,2845,black,25,4,3
+28,F,2577,"asian, hispanic & white",39,4,3
+29,F,2524,black,44,3,2
+30,F,2622,asian,18,0,0
+31,F,2241,hispanic  ,34,0,0
+32,F,2213,white,19,2,0
+33,F,2593,white,42,2,0
+34,F,2249,white,9,1,0
+35,M,2521,white,3,3,2
+36,M,2777,hispanic,16,1,0
+37,M,2239,asian,29,2,0
+38,F,2599,white,23,4,1
+39,M,2703,white,31,1,2
+40,M,2260,white,46,0,1
+41,M,2801,white,37,3,4
+42,M,2750,white,30,4,3
+43,M,2531,Indian American,11,3,4
+44,M,2335,Native Hawaii or Pacific Islander,6,1,2
+45,M,2796,white,7,4,1
+46,M,2277,black,21,0,1
+47,F,2241,asian,20,0,0
+48,F,2401,asian,43,0,1

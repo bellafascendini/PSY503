@@ -1,0 +1,177 @@
+Subject,Gender,Age in days,Ethnicity,Counterfactual Schedule Cell #,trial,Task_order,Conservation_Story,Conservation question order,post-transformation score,Counterfactual story order,state order in question,Counterfactual_score,Conservation_total,Counterfactual_total
+1,F,2252,unknown,4,2,Con,N,S,0,S,C,1,0,1
+1,F,2252,unknown,4,4,Con,L,D,0,R,A,0,0,1
+2,M,2304,white,27,2,Counter,N,S,0,T,A,1,0,1
+2,M,2304,white,27,3,Counter,M,D,0,S,C,0,0,1
+2,M,2304,white,27,4,Counter,L,D,0,Y,C,0,0,1
+3,M,2426,white,20,1,Counter,L,S,1,Y,C,1,4,3
+3,M,2426,white,20,2,Counter,M,S,1,S,C,1,4,3
+3,M,2426,white,20,3,Counter,N,D,1,T,A,0,4,3
+3,M,2426,white,20,4,Counter,V,D,1,R,A,1,4,3
+4,M,2335,white & asian,13,1,Con,L,S,0,R,A,0,2,3
+4,M,2335,white & asian,13,2,Con,M,S,1,T,A,1,2,3
+4,M,2335,white & asian,13,3,Con,N,D,0,S,C,1,2,3
+4,M,2335,white & asian,13,4,Con,V,D,1,Y,C,1,2,3
+5,M,2683,white,45,1,Counter,L,D,0,R,C,1,2,4
+5,M,2683,white,45,2,Counter,M,D,1,T,C,1,2,4
+5,M,2683,white,45,3,Counter,N,S,1,S,A,1,2,4
+5,M,2683,white,45,4,Counter,V,S,0,Y,A,1,2,4
+6,F,2851,asian,15,1,Con,L,S,0,R,A,1,3,3
+6,F,2851,asian,15,2,Con,M,S,1,T,A,1,3,3
+6,F,2851,asian,15,3,Con,N,D,1,S,C,1,3,3
+6,F,2851,asian,15,4,Con,V,D,1,Y,C,0,3,3
+7,F,2510,asian & white,33,1,Counter,V,D,0,R,C,1,2,4
+7,F,2510,asian & white,33,2,Counter,N,D,1,T,C,1,2,4
+7,F,2510,asian & white,33,3,Counter,M,S,1,S,A,1,2,4
+7,F,2510,asian & white,33,4,Counter,L,S,0,Y,A,1,2,4
+8,F,2856,"hispanic, asian & white",47,1,Counter,L,D,0,Y,C,1,3,3
+8,F,2856,"hispanic, asian & white",47,2,Counter,M,D,1,S,C,0,3,3
+8,F,2856,"hispanic, asian & white",47,3,Counter,N,S,1,T,A,1,3,3
+8,F,2856,"hispanic, asian & white",47,4,Counter,V,S,1,R,A,1,3,3
+9,F,2288,white,10,1,Con,V,D,0,Y,A,0,0,1
+9,F,2288,white,10,2,Con,N,D,0,S,A,0,0,1
+9,F,2288,white,10,3,Con,M,S,0,T,C,1,0,1
+9,F,2288,white,10,4,Con,L,S,0,R,C,0,0,1
+10,M,2515,white,38,1,Counter,L,S,0,R,C,0,0,0
+10,M,2515,white,38,2,Counter,M,S,0,T,C,0,0,0
+10,M,2515,white,38,3,Counter,N,D,0,S,A,0,0,0
+10,M,2515,white,38,4,Counter,V,D,0,Y,A,0,0,0
+11,F,2209,white,2,2,Con,N,S,1,T,C,0,1,2
+11,F,2209,white,2,3,Con,M,D,0,S,A,1,1,2
+11,F,2209,white,2,4,Con,L,D,0,Y,A,1,1,2
+12,M,2279,white,24,1,Con,L,D,0,Y,A,1,1,2
+12,M,2279,white,24,2,Con,M,D,0,S,A,0,1,2
+12,M,2279,white,24,3,Con,N,S,1,T,C,1,1,2
+13,M,2908,asian & white,35,1,Counter,V,D,1,Y,C,1,4,4
+13,M,2908,asian & white,35,2,Counter,N,D,1,S,C,1,4,4
+13,M,2908,asian & white,35,3,Counter,M,S,1,T,A,1,4,4
+13,M,2908,asian & white,35,4,Counter,L,S,1,R,A,1,4,4
+14,F,2201,asian & white,36,1,Counter,V,D,0,Y,A,0,2,0
+14,F,2201,asian & white,36,2,Counter,N,D,1,S,A,0,2,0
+14,F,2201,asian & white,36,3,Counter,M,S,1,T,C,0,2,0
+14,F,2201,asian & white,36,4,Counter,L,S,0,R,C,0,2,0
+15,F,2307,white & black ,12,2,Con,N,D,1,S,A,0,3,2
+15,F,2307,white & black ,12,3,Con,M,S,1,T,C,1,3,2
+15,F,2307,white & black ,12,4,Con,L,S,1,R,C,1,3,2
+16,F,2713,American Indian,28,1,Counter,V,S,0,Y,C,0,0,3
+16,F,2713,American Indian,28,2,Counter,N,S,0,S,C,1,0,3
+16,F,2713,American Indian,28,3,Counter,M,D,0,T,A,1,0,3
+16,F,2713,American Indian,28,4,Counter,L,D,0,R,A,1,0,3
+17,F,2428,white,17,1,Con,L,S,0,Y,A,1,0,4
+17,F,2428,white,17,2,Con,M,S,0,S,A,1,0,4
+17,F,2428,white,17,3,Con,N,D,0,T,C,1,0,4
+17,F,2428,white,17,4,Con,V,D,0,R,C,1,0,4
+18,F,2579,unknown,41,1,Counter,L,S,0,Y,A,1,3,2
+18,F,2579,unknown,41,2,Counter,M,S,1,S,A,0,3,2
+18,F,2579,unknown,41,3,Counter,N,D,1,T,C,1,3,2
+18,F,2579,unknown,41,4,Counter,V,D,1,R,C,0,3,2
+19,F,2893,unknown,26,1,Counter,V,S,0,R,C,1,1,2
+19,F,2893,unknown,26,2,Counter,N,S,1,T,C,1,1,2
+19,F,2893,unknown,26,3,Counter,M,D,0,S,A,0,1,2
+19,F,2893,unknown,26,4,Counter,L,D,0,Y,A,0,1,2
+20,M,2568,hispanic ,14,1,Con,L,S,0,R,C,0,3,2
+20,M,2568,hispanic ,14,2,Con,M,S,1,T,C,0,3,2
+20,M,2568,hispanic ,14,3,Con,N,D,1,S,A,1,3,2
+20,M,2568,hispanic ,14,4,Con,V,D,1,Y,A,1,3,2
+21,M,2598,white & hispanic,5,1,Con,V,S,0,Y,A,1,0,1
+21,M,2598,white & hispanic,5,3,Con,M,D,0,T,C,0,0,1
+21,M,2598,white & hispanic,5,4,Con,L,D,0,R,C,0,0,1
+22,M,2296,hispanic & white,32,1,Counter,V,D,0,R,A,0,0,0
+22,M,2296,hispanic & white,32,2,Counter,N,D,0,T,A,0,0,0
+22,M,2296,hispanic & white,32,3,Counter,M,S,0,S,C,0,0,0
+22,M,2296,hispanic & white,32,4,Counter,L,S,0,Y,C,0,0,0
+23,M,2736,white ,8,1,Con,V,D,1,R,A,0,4,3
+23,M,2736,white ,8,2,Con,N,D,1,T,A,1,4,3
+23,M,2736,white ,8,3,Con,M,S,1,S,C,1,4,3
+23,M,2736,white ,8,4,Con,L,S,1,Y,C,1,4,3
+24,M,2229,asian,48,1,Con,L,D,0,Y,A,0,1,0
+24,M,2229,asian,48,2,Con,M,D,0,S,A,0,1,0
+24,M,2229,asian,48,3,Con,N,S,0,T,C,0,1,0
+24,M,2229,asian,48,4,Con,V,S,1,R,C,0,1,0
+25,M,2624,white,22,1,Counter,L,D,0,Y,A,0,0,0
+25,M,2624,white,22,2,Counter,M,D,0,S,A,0,0,0
+25,M,2624,white,22,3,Counter,N,S,0,T,C,0,0,0
+25,M,2624,white,22,4,Counter,V,S,0,R,C,0,0,0
+26,F,2818,asian,1,1,Con,V,S,0,R,A,0,1,0
+26,F,2818,asian,1,2,Con,N,S,1,T,A,0,1,0
+26,F,2818,asian,1,3,Con,M,D,0,S,C,0,1,0
+26,F,2818,asian,1,4,Con,L,D,0,Y,C,0,1,0
+27,F,2845,black,25,1,Counter,V,S,1,R,A,0,4,3
+27,F,2845,black,25,2,Counter,N,S,1,T,A,1,4,3
+27,F,2845,black,25,3,Counter,M,D,1,S,C,1,4,3
+27,F,2845,black,25,4,Counter,L,D,1,Y,C,1,4,3
+28,F,2577,"asian, white & hispanic",39,1,Counter,L,S,1,R,A,0,4,3
+28,F,2577,"asian, white & hispanic",39,2,Counter,M,S,1,T,A,1,4,3
+28,F,2577,"asian, white & hispanic",39,3,Counter,N,D,1,S,C,1,4,3
+28,F,2577,"asian, white & hispanic",39,4,Counter,V,D,1,Y,C,1,4,3
+29,F,2524,black,44,1,Counter,L,S,0,R,A,0,3,2
+29,F,2524,black,44,2,Counter,M,S,1,T,A,1,3,2
+29,F,2524,black,44,3,Counter,N,D,1,S,C,0,3,2
+29,F,2524,black,44,4,Counter,V,D,1,Y,C,1,3,2
+30,F,2622,asian,18,1,Con,L,S,0,Y,C,0,0,0
+30,F,2622,asian,18,2,Con,M,S,0,S,C,0,0,0
+30,F,2622,asian,18,3,Con,N,D,0,T,A,0,0,0
+30,F,2622,asian,18,4,Con,V,D,0,R,A,0,0,0
+31,F,2241,hispanic ,34,1,Counter,V,D,0,Y,A,0,0,0
+31,F,2241,hispanic ,34,2,Counter,N,D,0,S,A,0,0,0
+31,F,2241,hispanic ,34,3,Counter,M,S,0,T,C,0,0,0
+31,F,2241,hispanic ,34,4,Counter,L,S,0,R,C,0,0,0
+32,F,2213,white ,19,1,Con,L,D,1,R,C,0,2,0
+32,F,2213,white ,19,2,Con,M,D,1,T,C,0,2,0
+32,F,2213,white ,19,3,Con,N,S,0,S,A,0,2,0
+32,F,2213,white ,19,4,Con,V,S,0,Y,A,0,2,0
+33,F,2593,white ,48,2,Counter,M,S,1,S,C,0,2,0
+33,F,2593,white ,48,3,Counter,N,D,1,T,A,0,2,0
+34,F,2449,white ,9,2,Con,N,D,0,T,C,0,0,0
+34,F,2449,white ,9,3,Con,M,S,0,S,A,0,0,0
+35,M,2521,white,3,1,Con,V,S,0,R,A,1,3,2
+35,M,2521,white,3,2,Con,N,S,1,T,A,0,3,2
+35,M,2521,white,3,3,Con,M,D,1,S,C,0,3,2
+35,M,2521,white,3,4,Con,L,D,1,Y,C,1,3,2
+36,M,2777,hispanic,16,1,Con,L,S,0,Y,C,0,1,0
+36,M,2777,hispanic,16,2,Con,M,S,0,S,C,0,1,0
+36,M,2777,hispanic,16,3,Con,N,D,1,T,A,0,1,0
+36,M,2777,hispanic,16,4,Con,V,D,0,R,A,0,1,0
+37,M,2239,asian,29,2,Counter,N,S,1,S,A,0,1,0
+37,M,2239,asian,29,3,Counter,M,D,0,T,C,0,1,0
+37,M,2239,asian,29,4,Counter,L,D,0,R,C,0,1,0
+38,F,2599,white,23,1,Con,L,D,1,Y,C,0,4,1
+38,F,2599,white,23,2,Con,M,D,1,S,C,0,4,1
+38,F,2599,white,23,3,Con,N,S,1,T,A,0,4,1
+38,F,2599,white,23,4,Con,V,S,1,R,A,1,4,1
+39,M,2703,white,31,1,Counter,V,D,0,R,C,0,1,2
+39,M,2703,white,31,2,Counter,N,D,1,T,C,1,1,2
+39,M,2703,white,31,3,Counter,M,S,0,S,A,0,1,2
+39,M,2703,white,31,4,Counter,L,S,0,Y,A,1,1,2
+40,M,2260,white,46,1,Counter,L,D,0,Y,A,0,0,1
+40,M,2260,white,46,2,Counter,M,D,0,S,A,0,0,1
+40,M,2260,white,46,3,Counter,N,S,0,T,C,1,0,1
+40,M,2260,white,46,4,Counter,V,S,0,R,C,0,0,1
+41,M,2801,white,37,1,Counter,L,S,1,R,A,1,3,3
+41,M,2801,white,37,2,Counter,M,S,1,T,A,1,3,3
+41,M,2801,white,37,3,Counter,N,D,1,S,C,1,3,3
+42,M,2750,white,30,1,Counter,V,S,1,Y,C,1,4,3
+42,M,2750,white,30,2,Counter,N,S,1,S,C,1,4,3
+42,M,2750,white,30,3,Counter,M,D,1,T,A,0,4,3
+42,M,2750,white,30,4,Counter,L,D,1,R,A,1,4,3
+43,M,2531,Indian American,11,1,Con,V,D,0,Y,C,1,2,3
+43,M,2531,Indian American,11,2,Con,N,D,1,S,C,1,2,3
+43,M,2531,Indian American,11,3,Con,M,S,1,T,A,1,2,3
+44,M,2335,Native Hawaiian or pacific islander,6,2,Con,N,S,0,S,C,0,0,1
+44,M,2335,Native Hawaiian or pacific islander,6,3,Con,M,D,0,T,A,1,0,1
+45,M,2796,white ,7,1,Con,V,D,1,R,C,1,4,1
+45,M,2796,white ,7,2,Con,N,D,1,T,C,0,4,1
+45,M,2796,white ,7,3,Con,M,S,1,S,A,0,4,1
+45,M,2796,white ,7,4,Con,L,S,1,Y,A,0,4,1
+46,M,2277,white ,21,1,Con,L,D,0,R,C,0,0,1
+46,M,2277,white ,21,2,Con,M,D,0,T,C,1,0,1
+46,M,2277,white ,21,3,Con,N,S,0,S,A,0,0,1
+46,M,2277,white ,21,4,Con,V,S,0,Y,A,0,0,1
+47,F,2241,asian,20,1,Con,L,D,0,R,A,0,0,0
+47,F,2241,asian,20,2,Con,M,D,0,T,A,0,0,0
+47,F,2241,asian,20,3,Con,N,S,0,S,C,0,0,0
+47,F,2241,asian,20,4,Con,V,S,0,Y,C,0,0,0
+48,F,2401,asian,43,1,Counter,L,D,0,R,C,1,0,1
+48,F,2401,asian,43,2,Counter,M,D,0,T,C,0,0,1
+48,F,2401,asian,43,3,Counter,N,S,0,S,A,0,0,1
+48,F,2401,asian,43,4,Counter,V,S,0,Y,A,0,0,1
