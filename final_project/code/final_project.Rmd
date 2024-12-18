@@ -64,13 +64,10 @@ This analysis examines how age and counterfactual thinking ability influence chi
 
 ```{r}
 library(tidyverse)
-library(dplyr)
 library(MetBrewer)
-library(ggplot2)
 library(lme4)
 library(nlme)
 library(scales)
-library(tinytex)
 #set default theme for plots
 theme_set(theme_classic() + 
             theme(text = element_text(size = 12))) 
